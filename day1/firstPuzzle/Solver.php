@@ -10,6 +10,11 @@ class Solver
 
         $depths = explode("\n", $inputContent);
 
+        return self::computeDepthMeasurementIncreases($depths);
+    }
+
+    public static function computeDepthMeasurementIncreases(array $depths): int
+    {
         $depthMeasurementIncreases = 0;
         $lastDepth = null;
         foreach($depths as $depth) {
