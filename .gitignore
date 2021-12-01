@@ -1,0 +1,6 @@
+/vendor/
+
+
+# PhpStorm
+.idea/
+.idea/*
