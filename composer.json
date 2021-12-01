@@ -4,7 +4,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Day1\\FirstPuzzle\\": "./day1/firstPuzzle"
+            "Day1\\": "./day1"
         }
     }
 }
