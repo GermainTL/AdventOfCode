@@ -1,6 +1,6 @@
 <?php
 
-namespace Day1\FirstPuzzle;
+namespace Day1\Puzzle1;
 
 class Solver
 {

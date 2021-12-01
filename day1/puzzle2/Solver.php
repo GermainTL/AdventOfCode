@@ -1,8 +1,8 @@
 <?php
 
-namespace Day1\SecondPuzzle;
+namespace Day1\Puzzle2;
 
-use Day1\FirstPuzzle\Solver as FirstPuzzleSolver;
+use Day1\Puzzle1\Solver as Puzzle1Solver;
 
 class Solver
 {
@@ -20,6 +20,6 @@ class Solver
             $index++;
         }
 
-        return FirstPuzzleSolver::computeDepthMeasurementIncreases($threeMeasurementDepthSums);
+        return Puzzle1Solver::computeDepthMeasurementIncreases($threeMeasurementDepthSums);
     }
 }

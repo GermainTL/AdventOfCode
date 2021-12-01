@@ -1,8 +1,8 @@
 <?php
 
-namespace Day1\FirstPuzzle\Tests;
+namespace Day1\Puzzle1\Tests;
 
-use Day1\FirstPuzzle\Solver;
+use Day1\Puzzle1\Solver;
 use PHPUnit\Framework\TestCase;
 
 class SolverTest extends TestCase
