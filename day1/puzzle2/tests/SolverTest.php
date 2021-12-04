@@ -10,10 +10,10 @@ class SolverTest extends TestCase
     /**
      * @dataProvider solveProvider
      */
-    public function testSolve(string $inputFileName, int $expectedOutput)
+    public function testSolve(string $inputFilePath, int $expectedOutput)
     {
-        $solution = new Solver();
-        $actualOutput = $solution->solve($inputFileName);
+        $solver = new Solver();
+        $actualOutput = $solver->solve($inputFilePath);
 
         $this->assertEquals($expectedOutput,$actualOutput);
     }

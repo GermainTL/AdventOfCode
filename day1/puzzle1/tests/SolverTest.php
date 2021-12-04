@@ -10,10 +10,10 @@ class SolverTest extends TestCase
     /**
      * @dataProvider solveProvider
      */
-    public function testSolve(string $inputFileName, int $expectedOutput)
+    public function testSolve(string $inputFilePath, int $expectedOutput)
     {
-        $solution = new Solver();
-        $actualOutput = $solution->solve($inputFileName);
+        $solver = new Solver();
+        $actualOutput = $solver->solve($inputFilePath);
 
         $this->assertEquals($expectedOutput,$actualOutput);
     }
@@ -21,11 +21,11 @@ class SolverTest extends TestCase
     public function solveProvider()
     {
         yield 'Given example should return given answer' => [
-            'file name' => 'day1/puzzle1/sampleInput.txt',
+            'file path' => 'day1/puzzle1/sampleInput.txt',
             'expected output' => 7
         ];
         yield 'Given input should return the answer to puzzle' => [
-            'file name' => 'day1/puzzle1/input.txt',
+            'file path' => 'day1/puzzle1/input.txt',
             'expected output' => 1602
         ];
     }
