@@ -2,13 +2,13 @@
 
 namespace Day1\Puzzle1;
 
+use Utils\FileParser;
+
 class Solver
 {
-    public static function solve(string $fileName): int
+    public static function solve(string $filePath): int
     {
-        $inputContent = file_get_contents(__DIR__.'/../inputs/'.$fileName);
-
-        $depths = explode("\n", $inputContent);
+        $depths = FileParser::readInputFile($filePath);
 
         return self::computeDepthMeasurementIncreases($depths);
     }

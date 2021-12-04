@@ -21,11 +21,11 @@ class SolverTest extends TestCase
     public function solveProvider()
     {
         yield 'Given example should return given answer' => [
-            'file name' => 'sampleInput.txt',
+            'file name' => 'day1/puzzle1/sampleInput.txt',
             'expected output' => 7
         ];
         yield 'Given input should return the answer to puzzle' => [
-            'file name' => 'input.txt',
+            'file name' => 'day1/puzzle1/input.txt',
             'expected output' => 1602
         ];
     }
