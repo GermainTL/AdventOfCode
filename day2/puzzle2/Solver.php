@@ -15,7 +15,7 @@ class Solver
 
     public static function solve(string $filePath): int
     {
-        $inputContent = FileParser::readInputFile($filePath);
+        $inputContent = FileParser::parseInputSeparatedByBreakLines($filePath);
 
         ['horizontalPosition' => $horizontalPosition, 'depth' => $depth, 'aim' => $aim] = self::getPosition($inputContent);
 

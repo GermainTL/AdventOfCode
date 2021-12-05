@@ -8,7 +8,7 @@ class Solver
 {
     public static function solve(string $filePath): int
     {
-        $depths = FileParser::readInputFile($filePath);
+        $depths = FileParser::parseInputSeparatedByBreakLines($filePath);
 
         return self::computeDepthMeasurementIncreases($depths);
     }

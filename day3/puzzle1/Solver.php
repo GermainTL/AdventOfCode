@@ -13,7 +13,7 @@ class Solver
 
     public function __construct(string $filePath)
     {
-        $this->diagnosticReports = FileParser::readInputFile($filePath);
+        $this->diagnosticReports = FileParser::parseInputSeparatedByBreakLines($filePath);
         $this->bitsCount = strlen($this->diagnosticReports[0]);
     }
 

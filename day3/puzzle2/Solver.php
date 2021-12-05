@@ -15,7 +15,7 @@ class Solver
 
     public function __construct(string $filePath)
     {
-        $this->diagnosticReports = FileParser::readInputFile($filePath);
+        $this->diagnosticReports = FileParser::parseInputSeparatedByBreakLines($filePath);
         $this->bitsCount = strlen($this->diagnosticReports[0]);
         $this->filePath = $filePath;
     }
@@ -111,7 +111,7 @@ class Solver
 
     private function resetDiagnosticReports(): self
     {
-        $this->diagnosticReports = FileParser::readInputFile($this->filePath);
+        $this->diagnosticReports = FileParser::parseInputSeparatedByBreakLines($this->filePath);
 
         return $this;
     }
