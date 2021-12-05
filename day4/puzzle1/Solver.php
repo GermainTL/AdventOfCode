@@ -28,41 +28,16 @@ class Solver
             $this->markAllBingoNumberDTOs($bingoNumber);
 
             foreach ($this->boardDTOs as $boardDTOIndex => $boardDTO) {
-                foreach ($boardDTO->cases as $boardLine) {
-                    $isAllLineMarked = true;
-                    foreach ($boardLine as $boardNumberDTO) {
-                        if (!$boardNumberDTO->isMarked) {
-                            $isAllLineMarked = false;
-                        }
-                    }
-                    if ($isAllLineMarked) {
-                        $winningBoardUnmarkedNumberSum = $this->getWinningBoardUnmarkedNumberSum($boardDTOIndex);
+                if ($this->hasBoardWon($boardDTO))
+                {
+                    $winningBoardUnmarkedNumberSum = $this->computeWinningBoardUnmarkedNumberSum($boardDTO);
 
-                        return $winningBoardUnmarkedNumberSum * $bingoNumber;
-                    }
-                }
-
-                foreach ($boardDTO->cases as $boardLine) {
-                    for($columnIndex = 0; $columnIndex < count($boardLine); $columnIndex++) {
-
-                        $isAllColumnMarked = true;
-                        foreach ($boardLine as $boardNumberIndex => $boardNumberDTO)
-                        {
-                            if (!$boardNumberDTO->isMarked) {
-                                $isAllColumnMarked = false;
-                            }
-                        }
-                        if ($isAllColumnMarked) {
-                            $winningBoardUnmarkedNumberSum = $this->getWinningBoardUnmarkedNumberSum($boardDTOIndex);
-
-                            return $winningBoardUnmarkedNumberSum * $bingoNumber;
-                        }
-                    }
+                    return $winningBoardUnmarkedNumberSum * $bingoNumber;
                 }
             }
         }
 
-        return 0;
+        throw new \Exception('Bingo machine might be broken, no boards won :\'( ...');
     }
 
     private function getBingoList($inputContent): array
@@ -85,10 +60,52 @@ class Solver
         }
     }
 
-    private function getWinningBoardUnmarkedNumberSum(int $boardDTOIndex)
+    private function hasBoardWon(BoardDTO $boardDTO): bool
+    {
+        return $this->hasBoardWonInLine($boardDTO) || $this->hasBoardWonInColumn($boardDTO);
+    }
+
+    private function hasBoardWonInLine(BoardDTO $boardDTO): bool
+    {
+        foreach ($boardDTO->cases as $boardLine) {
+            $isAllLineMarked = true;
+            foreach ($boardLine as $boardNumberDTO) {
+                if (!$boardNumberDTO->isMarked) {
+                    $isAllLineMarked = false;
+                }
+            }
+            if ($isAllLineMarked) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function hasBoardWonInColumn(BoardDTO $boardDTO): bool
+    {
+        foreach ($boardDTO->cases as $boardLine) {
+            for($columnIndex = 0; $columnIndex < count($boardLine); $columnIndex++) {
+
+                $isAllColumnMarked = true;
+                foreach ($boardLine as $boardNumberIndex => $boardNumberDTO)
+                {
+                    if (!$boardNumberDTO->isMarked) {
+                        $isAllColumnMarked = false;
+                    }
+                }
+                if ($isAllColumnMarked) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private function computeWinningBoardUnmarkedNumberSum(BoardDTO $boardDTO)
     {
         $numberSum = 0;
-        $boardDTO = $this->boardDTOs[$boardDTOIndex];
 
         foreach($boardDTO->cases as $boardLine)
         {
