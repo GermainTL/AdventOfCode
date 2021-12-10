@@ -2,6 +2,8 @@
 
 namespace Day4\Puzzle1;
 
+use Day4\BoardDTO;
+use Day4\BoardDTOFactory;
 use Utils\FileParser;
 
 class Solver
@@ -9,9 +11,9 @@ class Solver
     /**
      * @var BoardDTO[]
      */
-    private array $boardDTOs;
+    protected array $boardDTOs;
 
-    private array $bingoList;
+    protected array $bingoList;
 
     public function __construct(string $filePath)
     {
@@ -30,7 +32,7 @@ class Solver
             foreach ($this->boardDTOs as $boardDTOIndex => $boardDTO) {
                 if ($this->hasBoardWon($boardDTO))
                 {
-                    $winningBoardUnmarkedNumberSum = $this->computeWinningBoardUnmarkedNumberSum($boardDTO);
+                    $winningBoardUnmarkedNumberSum = $this->sumUnmarkedBoardNumber($boardDTO);
 
                     return $winningBoardUnmarkedNumberSum * $bingoNumber;
                 }
@@ -47,7 +49,7 @@ class Solver
         return array_map(fn(string $bingoNumber) => intval($bingoNumber), $bingoListAsStrings);
     }
 
-    private function markAllBingoNumberDTOs(int $bingoNumber): void
+    protected function markAllBingoNumberDTOs(int $bingoNumber): void
     {
         foreach ($this->boardDTOs as $boardDTO) {
             foreach ($boardDTO->cases as $boardLine) {
@@ -60,7 +62,7 @@ class Solver
         }
     }
 
-    private function hasBoardWon(BoardDTO $boardDTO): bool
+    public function hasBoardWon(BoardDTO $boardDTO): bool
     {
         return $this->hasBoardWonInLine($boardDTO) || $this->hasBoardWonInColumn($boardDTO);
     }
@@ -84,26 +86,22 @@ class Solver
 
     private function hasBoardWonInColumn(BoardDTO $boardDTO): bool
     {
-        foreach ($boardDTO->cases as $boardLine) {
-            for($columnIndex = 0; $columnIndex < count($boardLine); $columnIndex++) {
-
-                $isAllColumnMarked = true;
-                foreach ($boardLine as $boardNumberIndex => $boardNumberDTO)
-                {
-                    if (!$boardNumberDTO->isMarked) {
-                        $isAllColumnMarked = false;
-                    }
+        foreach ($boardDTO->cases as $columnIndex => $boardLine) {
+            $isAllColumnMarked = true;
+            foreach($boardLine as $lineIndex => $boardNumberDTO) {
+                if (!$boardDTO->cases[$lineIndex][$columnIndex]->isMarked) {
+                    $isAllColumnMarked = false;
                 }
-                if ($isAllColumnMarked) {
-                    return true;
-                }
+            }
+            if ($isAllColumnMarked) {
+                return true;
             }
         }
 
         return false;
     }
 
-    private function computeWinningBoardUnmarkedNumberSum(BoardDTO $boardDTO)
+    protected function sumUnmarkedBoardNumber(BoardDTO $boardDTO)
     {
         $numberSum = 0;
 

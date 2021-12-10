@@ -1,6 +1,6 @@
 <?php
 
-namespace Day4\Puzzle1;
+namespace Day4;
 
 class BoardNumberDTO
 {

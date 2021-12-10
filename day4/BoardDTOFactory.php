@@ -1,6 +1,6 @@
 <?php
 
-namespace Day4\Puzzle1;
+namespace Day4;
 
 class BoardDTOFactory
 {
@@ -45,8 +45,8 @@ class BoardDTOFactory
                 $boards[$boardIndex] = [];
             }
             if ($inputLine) {
-                $boardNumbers = explode(" ",$inputLine);
-                $boards[$boardIndex][] = $boardNumbers;
+                $boardNumbers = explode(" " , $inputLine);
+                $boards[$boardIndex][] = array_filter($boardNumbers, fn ($boardNumber) => $boardNumber !== "");
             }
         }
 
