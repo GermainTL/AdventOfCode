@@ -73,7 +73,7 @@ class Solver
         }
     }
 
-    private function drawLineOnDiagram(LineDTO $lineDTO): void
+    protected function drawLineOnDiagram(LineDTO $lineDTO): void
     {
         if ($lineDTO->point1->x === $lineDTO->point2->x) {
             $maxCoordinate = $lineDTO->point1->y > $lineDTO->point2->y ? $lineDTO->point1->y : $lineDTO->point2->y;
@@ -93,7 +93,7 @@ class Solver
         }
     }
 
-    private function getPointsGreatherThanTwo(): int
+    protected function getPointsGreatherThanTwo(): int
     {
         $pointsGreaterThanTwo = 0;
         foreach($this->diagram as $line) {
