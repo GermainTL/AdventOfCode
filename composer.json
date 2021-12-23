@@ -14,5 +14,8 @@
             "Day8\\": "./day8",
             "Utils\\": "./utils"
         }
+    },
+    "require": {
+        "friendsofphp/php-cs-fixer": "^3.4"
     }
 }

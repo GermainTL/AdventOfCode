@@ -17,7 +17,7 @@ class Solver
     {
         $depthMeasurementIncreases = 0;
         $lastDepth = null;
-        foreach($depths as $depth) {
+        foreach ($depths as $depth) {
             if ($lastDepth && $depth > $lastDepth) {
                 $depthMeasurementIncreases ++;
             }

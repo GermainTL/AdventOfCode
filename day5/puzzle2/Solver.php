@@ -19,11 +19,11 @@ class Solver extends Puzzle1Solver
 
     public function solve(): int
     {
-       foreach($this->lines as $line) {
-           $this->drawLineOnDiagram($line);
-       }
+        foreach ($this->lines as $line) {
+            $this->drawLineOnDiagram($line);
+        }
 
-       return $this->getPointsGreatherThanTwo();
+        return $this->getPointsGreatherThanTwo();
     }
 
     protected function drawLineOnDiagram(LineDTO $lineDTO): void
@@ -31,13 +31,13 @@ class Solver extends Puzzle1Solver
         parent::drawLineOnDiagram($lineDTO);
         if (abs($lineDTO->point1->x - $lineDTO->point2->x) === abs($lineDTO->point1->y - $lineDTO->point2->y)) {
             $maxYCoordinate = $lineDTO->point1->y > $lineDTO->point2->y ? $lineDTO->point1->y : $lineDTO->point2->y;
-            $minYCoordinate = $lineDTO->point1->y > $lineDTO->point2->y ? $lineDTO->point2->y :  $lineDTO->point1->y;
+            $minYCoordinate = $lineDTO->point1->y > $lineDTO->point2->y ? $lineDTO->point2->y : $lineDTO->point1->y;
 
             $maxXCoordinate = $lineDTO->point1->x > $lineDTO->point2->x ? $lineDTO->point1->x : $lineDTO->point2->x;
-            $minXCoordinate = $lineDTO->point1->x > $lineDTO->point2->x ? $lineDTO->point2->x :  $lineDTO->point1->x;
+            $minXCoordinate = $lineDTO->point1->x > $lineDTO->point2->x ? $lineDTO->point2->x : $lineDTO->point1->x;
 
-            for($rowIndex = $minXCoordinate; $rowIndex <= $maxXCoordinate; $rowIndex++) {
-                for($columnIndex = $minYCoordinate; $columnIndex <= $maxYCoordinate; $columnIndex++) {
+            for ($rowIndex = $minXCoordinate; $rowIndex <= $maxXCoordinate; $rowIndex++) {
+                for ($columnIndex = $minYCoordinate; $columnIndex <= $maxYCoordinate; $columnIndex++) {
                     if (abs($lineDTO->point1->x - $rowIndex) === abs($lineDTO->point1->y - $columnIndex)) {
                         $this->diagram[$rowIndex][$columnIndex] += 1;
                     }

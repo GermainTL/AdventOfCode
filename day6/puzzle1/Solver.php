@@ -16,8 +16,8 @@ class Solver
 
     public function solve(int $timeExperienceInDays): int
     {
-        for($day = 1; $day <= $timeExperienceInDays; $day ++) {
-            foreach($this->fishInternalTimers as $fishInternalTimerKey => $fishInternalTimer) {
+        for ($day = 1; $day <= $timeExperienceInDays; $day ++) {
+            foreach ($this->fishInternalTimers as $fishInternalTimerKey => $fishInternalTimer) {
                 if ($fishInternalTimer !== 0) {
                     $this->fishInternalTimers[$fishInternalTimerKey] = $this->fishInternalTimers[$fishInternalTimerKey] - 1;
                 } else {

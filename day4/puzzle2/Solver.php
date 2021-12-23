@@ -24,7 +24,7 @@ class Solver extends Puzzle1Solver
                 if ($this->hasBoardWon($boardDTO)) {
                     if (count($this->boardDTOs) === 1) {
                         $unmarkedBoardNumberSum = $this->sumUnmarkedBoardNumber($boardDTO);
-                        
+
                         return $bingoNumber * $unmarkedBoardNumberSum;
                     } else {
                         unset($this->boardDTOs[$boardDTOIndex]);

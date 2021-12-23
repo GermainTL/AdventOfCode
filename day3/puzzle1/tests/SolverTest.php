@@ -15,7 +15,7 @@ class SolverTest extends TestCase
         $solver = new Solver($inputFilePath);
         $actualOutput = $solver->solve();
 
-        $this->assertEquals($expectedOutput,$actualOutput);
+        $this->assertEquals($expectedOutput, $actualOutput);
     }
 
     public function solveProvider()
@@ -38,7 +38,7 @@ class SolverTest extends TestCase
         $solver = new Solver($inputFilePath);
         $actualOutput = $solver->computeGammaRate();
 
-        $this->assertEquals($expectedOutput,$actualOutput);
+        $this->assertEquals($expectedOutput, $actualOutput);
     }
 
     public function computeGammaRateProvider()
@@ -61,7 +61,7 @@ class SolverTest extends TestCase
         $solver = new Solver($inputFilePath);
         $actualOutput = $solver->computeEpsilonRate();
 
-        $this->assertEquals($expectedOutput,$actualOutput);
+        $this->assertEquals($expectedOutput, $actualOutput);
     }
 
     public function computeEpsilonRateProvider()

@@ -8,7 +8,7 @@ class Solver
 {
     protected array $fourDigitOutputValues = [];
 
-    const UNIQUE_NUMBER_OF_SEGMENTS = [2, 3, 4, 7];
+    public const UNIQUE_NUMBER_OF_SEGMENTS = [2, 3, 4, 7];
 
     public function __construct(string $filePath)
     {
@@ -19,8 +19,8 @@ class Solver
     public function solve(): ?int
     {
         $easyDigitsCount = 0;
-        foreach($this->fourDigitOutputValues as $fourDigitOutputValue) {
-            foreach(explode(" ", $fourDigitOutputValue) as $segment) {
+        foreach ($this->fourDigitOutputValues as $fourDigitOutputValue) {
+            foreach (explode(" ", $fourDigitOutputValue) as $segment) {
                 if (in_array(strlen($segment), self::UNIQUE_NUMBER_OF_SEGMENTS)) {
                     $easyDigitsCount++;
                 }
@@ -33,7 +33,7 @@ class Solver
     private function setFourDigitOutputValues(array $inputContent): void
     {
         $fourDigitOutputValues = [];
-        foreach($inputContent as $entry) {
+        foreach ($inputContent as $entry) {
             $rawFourDigitOutputValue = explode("|", $entry)[1];
             $fourDigitOutputValues[] = trim($rawFourDigitOutputValue);
         }

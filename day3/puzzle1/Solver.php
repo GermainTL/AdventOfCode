@@ -28,8 +28,7 @@ class Solver
     public function computeGammaRate(): int
     {
         $gammaRate = '';
-        for($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++)
-        {
+        for ($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++) {
             $hasMoreZerosThanOne = $this->hasMoreZerosThanOnes($bitPosition);
             $gammaRate .= $hasMoreZerosThanOne ? '0' : '1';
         }
@@ -40,8 +39,7 @@ class Solver
     public function computeEpsilonRate(): int
     {
         $epsilonRate = '';
-        for($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++)
-        {
+        for ($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++) {
             $hasMoreZerosThanOne = $this->hasMoreZerosThanOnes($bitPosition);
             $epsilonRate .= $hasMoreZerosThanOne ? '1' : '0';
         }
@@ -53,10 +51,8 @@ class Solver
     {
         $zeroCount = 0;
         $oneCount = 0;
-        foreach($this->diagnosticReports as $diagnosticReport)
-        {
-            if (intval(substr($diagnosticReport, $bitPosition, 1) == 0))
-            {
+        foreach ($this->diagnosticReports as $diagnosticReport) {
+            if (intval(substr($diagnosticReport, $bitPosition, 1) == 0)) {
                 $zeroCount++;
             } else {
                 $oneCount++;

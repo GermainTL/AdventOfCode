@@ -17,9 +17,9 @@ class Solver
     public function solve(): ?int
     {
         $leastFuelPossible = null;
-        foreach($this->horizontalPositions as $horizontalPosition) {
+        foreach ($this->horizontalPositions as $horizontalPosition) {
             $consumedFuel = 0;
-            foreach($this->horizontalPositions as $tempHorizontalPosition) {
+            foreach ($this->horizontalPositions as $tempHorizontalPosition) {
                 $consumedFuel += abs($horizontalPosition - $tempHorizontalPosition);
             }
             if (!$leastFuelPossible) {

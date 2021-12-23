@@ -11,14 +11,11 @@ class BoardDTOFactory
     {
         $boards = $this->parseInputLines($inputLines);
         $boardDTOs = [];
-        foreach($boards as $boardIndex => $board)
-        {
+        foreach ($boards as $boardIndex => $board) {
             $boardDTO = new BoardDTO();
-            foreach($board as $boardLineIndex => $boardLine)
-            {
+            foreach ($board as $boardLineIndex => $boardLine) {
                 $boardDTO->cases[$boardLineIndex] = [];
-                foreach($boardLine as $boardNumber)
-                {
+                foreach ($boardLine as $boardNumber) {
                     $boardNumberDTO = new BoardNumberDTO();
                     $boardNumberDTO->number = intval($boardNumber);
                     $boardDTO->cases[$boardLineIndex][] = $boardNumberDTO;
@@ -37,7 +34,7 @@ class BoardDTOFactory
 
         $boards = [];
         $boardIndex = 0;
-        foreach($inputLines as $inputLine) {
+        foreach ($inputLines as $inputLine) {
             if (!$inputLine) {
                 $boardIndex++;
             }
@@ -45,7 +42,7 @@ class BoardDTOFactory
                 $boards[$boardIndex] = [];
             }
             if ($inputLine) {
-                $boardNumbers = explode(" " , $inputLine);
+                $boardNumbers = explode(" ", $inputLine);
                 $boards[$boardIndex][] = array_filter($boardNumbers, fn ($boardNumber) => $boardNumber !== "");
             }
         }
@@ -56,8 +53,7 @@ class BoardDTOFactory
     private function removeBingoList(array $inputLines): array
     {
         array_shift($inputLines);
-        if (!$inputLines[0])
-        {
+        if (!$inputLines[0]) {
             array_shift($inputLines);
         }
 

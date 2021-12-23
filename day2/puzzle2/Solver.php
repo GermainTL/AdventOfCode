@@ -7,11 +7,11 @@ use Utils\Helper;
 
 class Solver
 {
-    const HORIZONTAL_COMMAND_PREFIX = 'forward';
-    const DECREASE_DEPTH_COMMAND_PREFIX = 'up';
-    const INCREASE_DEPTH_COMMAND_PREFIX = 'down';
+    public const HORIZONTAL_COMMAND_PREFIX = 'forward';
+    public const DECREASE_DEPTH_COMMAND_PREFIX = 'up';
+    public const INCREASE_DEPTH_COMMAND_PREFIX = 'down';
 
-    const ALL_COMMAND_PREFIXES = [self::HORIZONTAL_COMMAND_PREFIX, self::DECREASE_DEPTH_COMMAND_PREFIX, self::INCREASE_DEPTH_COMMAND_PREFIX];
+    public const ALL_COMMAND_PREFIXES = [self::HORIZONTAL_COMMAND_PREFIX, self::DECREASE_DEPTH_COMMAND_PREFIX, self::INCREASE_DEPTH_COMMAND_PREFIX];
 
     public static function solve(string $filePath): int
     {
@@ -28,11 +28,11 @@ class Solver
         $depth = 0;
         $aim = 0;
 
-        foreach($commands as $command) {
+        foreach ($commands as $command) {
             if (Helper::strContains(self::HORIZONTAL_COMMAND_PREFIX, $command)) {
                 $horizontalPosition += self::extractValueFromCommand($command, self::HORIZONTAL_COMMAND_PREFIX);
                 $depth += $aim * self::extractValueFromCommand($command, self::HORIZONTAL_COMMAND_PREFIX);
-            } elseif (Helper::strContains(self::DECREASE_DEPTH_COMMAND_PREFIX, $command)){
+            } elseif (Helper::strContains(self::DECREASE_DEPTH_COMMAND_PREFIX, $command)) {
                 $aim -= self::extractValueFromCommand($command, self::DECREASE_DEPTH_COMMAND_PREFIX);
             } elseif (Helper::strContains(self::INCREASE_DEPTH_COMMAND_PREFIX, $command)) {
                 $aim += self::extractValueFromCommand($command, self::INCREASE_DEPTH_COMMAND_PREFIX);
@@ -46,7 +46,7 @@ class Solver
 
     public static function extractValueFromCommand(string $command, string $commandPrefix): int
     {
-        $commandWithoutPrefix = trim(str_replace($commandPrefix, '',$command));
+        $commandWithoutPrefix = trim(str_replace($commandPrefix, '', $command));
 
         return intval($commandWithoutPrefix);
     }

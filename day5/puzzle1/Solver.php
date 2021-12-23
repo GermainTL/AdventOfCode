@@ -21,19 +21,19 @@ class Solver
 
     public function solve(): int
     {
-       foreach($this->lines as $line) {
-           $this->drawLineOnDiagram($line);
-       }
+        foreach ($this->lines as $line) {
+            $this->drawLineOnDiagram($line);
+        }
 
-       return $this->getPointsGreatherThanTwo();
+        return $this->getPointsGreatherThanTwo();
     }
 
     private function setLines(array $inputContent): void
     {
-        foreach($inputContent as $inputLine) {
+        foreach ($inputContent as $inputLine) {
             $points = [];
-            foreach(explode("->", $inputLine) as $key => $inputPoint) {
-                $pointCoordinates = explode(",",trim($inputPoint));
+            foreach (explode("->", $inputLine) as $key => $inputPoint) {
+                $pointCoordinates = explode(",", trim($inputPoint));
                 $pointDTO =  new PointDTO();
                 $pointDTO->x = intval($pointCoordinates[0]);
                 $pointDTO->y = intval($pointCoordinates[1]);
@@ -53,7 +53,7 @@ class Solver
         $diagramSize = 0;
         foreach ($inputContent as $inputLine) {
             foreach (explode("->", $inputLine) as $key => $inputPoint) {
-                $pointCoordinates = explode(",",trim($inputPoint));
+                $pointCoordinates = explode(",", trim($inputPoint));
                 foreach ($pointCoordinates as $pointCoordinate) {
                     if ($diagramSize < intval($pointCoordinate)) {
                         $diagramSize = intval($pointCoordinate);
@@ -77,17 +77,17 @@ class Solver
     {
         if ($lineDTO->point1->x === $lineDTO->point2->x) {
             $maxCoordinate = $lineDTO->point1->y > $lineDTO->point2->y ? $lineDTO->point1->y : $lineDTO->point2->y;
-            $minCoordinate = $lineDTO->point1->y > $lineDTO->point2->y ? $lineDTO->point2->y :  $lineDTO->point1->y;
+            $minCoordinate = $lineDTO->point1->y > $lineDTO->point2->y ? $lineDTO->point2->y : $lineDTO->point1->y;
 
-            for($columnIndex = $minCoordinate; $columnIndex <= $maxCoordinate; $columnIndex++) {
+            for ($columnIndex = $minCoordinate; $columnIndex <= $maxCoordinate; $columnIndex++) {
                 $this->diagram[$lineDTO->point1->x][$columnIndex] += 1;
             }
         }
         if ($lineDTO->point1->y === $lineDTO->point2->y) {
             $maxCoordinate = $lineDTO->point1->x > $lineDTO->point2->x ? $lineDTO->point1->x : $lineDTO->point2->x;
-            $minCoordinate = $lineDTO->point1->x > $lineDTO->point2->x ? $lineDTO->point2->x :  $lineDTO->point1->x;
+            $minCoordinate = $lineDTO->point1->x > $lineDTO->point2->x ? $lineDTO->point2->x : $lineDTO->point1->x;
 
-            for($rowIndex = $minCoordinate; $rowIndex <= $maxCoordinate; $rowIndex++) {
+            for ($rowIndex = $minCoordinate; $rowIndex <= $maxCoordinate; $rowIndex++) {
                 $this->diagram[$rowIndex][$lineDTO->point1->y] += 1;
             }
         }
@@ -96,8 +96,8 @@ class Solver
     protected function getPointsGreatherThanTwo(): int
     {
         $pointsGreaterThanTwo = 0;
-        foreach($this->diagram as $line) {
-            foreach($line as $number) {
+        foreach ($this->diagram as $line) {
+            foreach ($line as $number) {
                 if ($number > 1) {
                     $pointsGreaterThanTwo++;
                 }

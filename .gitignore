@@ -4,3 +4,4 @@
 # PhpStorm
 .idea/
 .idea/*
+.php-cs-fixer.cache

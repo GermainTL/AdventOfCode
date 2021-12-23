@@ -8,7 +8,7 @@ class Solver
 {
     protected array $entries = [];
 
-    const UNIQUE_NUMBER_OF_SEGMENTS = [
+    public const UNIQUE_NUMBER_OF_SEGMENTS = [
         ['numberOfSegment' => 2, 'digitValue' => 1],
         ['numberOfSegment' => 3, 'digitValue' => 7],
         ['numberOfSegment' => 4, 'digitValue' => 4],
@@ -24,7 +24,7 @@ class Solver
     public function solve(): ?int
     {
         $total = 0;
-        foreach($this->entries as $entry) {
+        foreach ($this->entries as $entry) {
             $explodedEntry = explode("|", $entry);
             $signalPatternsByDigitValue = $this->computeSignalPatternsByDigitValue(explode(" ", trim($explodedEntry[0])));
             $total += $this->getFourDigitOutput(explode(" ", trim($explodedEntry[1])), $signalPatternsByDigitValue);
@@ -42,7 +42,7 @@ class Solver
     public function getEasyDigits(array $tenDigitsSignal): array
     {
         $easyDigits = [];
-        foreach($tenDigitsSignal as $segment) {
+        foreach ($tenDigitsSignal as $segment) {
             $uniqueNumberOfSegmentKey = array_search(strlen($segment), array_column(self::UNIQUE_NUMBER_OF_SEGMENTS, 'numberOfSegment'));
             if ($uniqueNumberOfSegmentKey !== false) {
                 $easyDigits[self::UNIQUE_NUMBER_OF_SEGMENTS[$uniqueNumberOfSegmentKey]['digitValue']] = $segment;
@@ -56,11 +56,11 @@ class Solver
     {
         $signalPatternsByDigitValue = $easyDigits;
 
-        foreach($tenDigitsSignal as $signal) {
+        foreach ($tenDigitsSignal as $signal) {
             if (strlen($signal) === 6) {
-                if(!self::isStringContainingAllCharsOfString($signal, $signalPatternsByDigitValue[1])) {
+                if (!self::isStringContainingAllCharsOfString($signal, $signalPatternsByDigitValue[1])) {
                     $signalPatternsByDigitValue[6] = $signal;
-                } else if (!self::isStringContainingAllCharsOfString($signal, $signalPatternsByDigitValue[4])) {
+                } elseif (!self::isStringContainingAllCharsOfString($signal, $signalPatternsByDigitValue[4])) {
                     $signalPatternsByDigitValue[0] = $signal;
                 } else {
                     $signalPatternsByDigitValue[9] = $signal;
@@ -68,11 +68,11 @@ class Solver
             }
         }
 
-        foreach($tenDigitsSignal as $signal) {
+        foreach ($tenDigitsSignal as $signal) {
             if (strlen($signal) === 5) {
                 if (!self::isStringContainingAllCharsOfString($signalPatternsByDigitValue[9], $signal)) {
                     $signalPatternsByDigitValue[2] = $signal;
-                } else if (!self::isStringContainingAllCharsOfString($signal, $signalPatternsByDigitValue[7])) {
+                } elseif (!self::isStringContainingAllCharsOfString($signal, $signalPatternsByDigitValue[7])) {
                     $signalPatternsByDigitValue[5] = $signal;
                 } else {
                     $signalPatternsByDigitValue[3] = $signal;
@@ -86,8 +86,8 @@ class Solver
     private function getFourDigitOutput(array $digitOutputAsSignal, array $signalPatternsByDigitValue): int
     {
         $fourDigitOuput = '';
-        foreach($digitOutputAsSignal as $signal) {
-            foreach($signalPatternsByDigitValue as $digitValue => $signalPattern) {
+        foreach ($digitOutputAsSignal as $signal) {
+            foreach ($signalPatternsByDigitValue as $digitValue => $signalPattern) {
                 if (self::isAnagram($signalPattern, $signal)) {
                     $fourDigitOuput .= (string) $digitValue;
                 }
@@ -104,7 +104,7 @@ class Solver
 
     private static function isStringContainingAllCharsOfString(string $haystack, string $needle): bool
     {
-        foreach(str_split($needle) as $needleChar) {
+        foreach (str_split($needle) as $needleChar) {
             if (strpos($haystack, $needleChar) === false) {
                 return false;
             }

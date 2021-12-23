@@ -19,13 +19,13 @@ class Solver
 
     public function solve(int $timeExperienceInDays): int
     {
-        for($day = 1; $day <= $timeExperienceInDays; $day ++) {
+        for ($day = 1; $day <= $timeExperienceInDays; $day ++) {
             $lanternFishesToAddOrResetCount = $this->timersCountIndexedByTimerValues[0];
 
-            foreach($this->timersCountIndexedByTimerValues as $timerValue => $timerCount) {
-               if ($timerValue !== 8) {
-                   $this->timersCountIndexedByTimerValues[$timerValue] = $this->timersCountIndexedByTimerValues[$timerValue + 1];
-               }
+            foreach ($this->timersCountIndexedByTimerValues as $timerValue => $timerCount) {
+                if ($timerValue !== 8) {
+                    $this->timersCountIndexedByTimerValues[$timerValue] = $this->timersCountIndexedByTimerValues[$timerValue + 1];
+                }
             }
 
             $this->timersCountIndexedByTimerValues[6] += $lanternFishesToAddOrResetCount;
@@ -37,10 +37,10 @@ class Solver
 
     public function setTimersCountIndexedByTimerValues(): void
     {
-        for($timerValue = 0; $timerValue <= 8; $timerValue++) {
+        for ($timerValue = 0; $timerValue <= 8; $timerValue++) {
             $this->timersCountIndexedByTimerValues[$timerValue] = 0;
         }
-        foreach($this->fishInternalTimers as $fishInternalTimer) {
+        foreach ($this->fishInternalTimers as $fishInternalTimer) {
             $this->timersCountIndexedByTimerValues[$fishInternalTimer]++;
         }
     }

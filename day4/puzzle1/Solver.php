@@ -30,8 +30,7 @@ class Solver
             $this->markAllBingoNumberDTOs($bingoNumber);
 
             foreach ($this->boardDTOs as $boardDTOIndex => $boardDTO) {
-                if ($this->hasBoardWon($boardDTO))
-                {
+                if ($this->hasBoardWon($boardDTO)) {
                     $winningBoardUnmarkedNumberSum = $this->sumUnmarkedBoardNumber($boardDTO);
 
                     return $winningBoardUnmarkedNumberSum * $bingoNumber;
@@ -46,7 +45,7 @@ class Solver
     {
         $bingoListAsStrings = explode(",", array_shift($inputContent));
 
-        return array_map(fn(string $bingoNumber) => intval($bingoNumber), $bingoListAsStrings);
+        return array_map(fn (string $bingoNumber) => intval($bingoNumber), $bingoListAsStrings);
     }
 
     protected function markAllBingoNumberDTOs(int $bingoNumber): void
@@ -88,7 +87,7 @@ class Solver
     {
         foreach ($boardDTO->cases as $columnIndex => $boardLine) {
             $isAllColumnMarked = true;
-            foreach($boardLine as $lineIndex => $boardNumberDTO) {
+            foreach ($boardLine as $lineIndex => $boardNumberDTO) {
                 if (!$boardDTO->cases[$lineIndex][$columnIndex]->isMarked) {
                     $isAllColumnMarked = false;
                 }
@@ -105,10 +104,8 @@ class Solver
     {
         $numberSum = 0;
 
-        foreach($boardDTO->cases as $boardLine)
-        {
-            foreach($boardLine as $boardNumberDTO)
-            {
+        foreach ($boardDTO->cases as $boardLine) {
+            foreach ($boardLine as $boardNumberDTO) {
                 if (!$boardNumberDTO->isMarked) {
                     $numberSum += $boardNumberDTO->number;
                 }

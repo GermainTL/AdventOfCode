@@ -15,7 +15,7 @@ class SolverTest extends TestCase
         $solver = new Solver($inputFilePath);
         $actualOutput = $solver->solve();
 
-        $this->assertEquals($expectedOutput,$actualOutput);
+        $this->assertEquals($expectedOutput, $actualOutput);
     }
 
     public function solveProvider()
@@ -38,7 +38,7 @@ class SolverTest extends TestCase
         $solver = new Solver($inputFilePath);
         $actualOutput = $solver->computeOxygenGeneratorRating();
 
-        $this->assertEquals($expectedOutput,$actualOutput);
+        $this->assertEquals($expectedOutput, $actualOutput);
     }
 
     public function computeOxygenGeneratorRatingProvider()
@@ -61,7 +61,7 @@ class SolverTest extends TestCase
         $solver = new Solver($inputFilePath);
         $actualOutput = $solver->computeCO2ScrubberRating();
 
-        $this->assertEquals($expectedOutput,$actualOutput);
+        $this->assertEquals($expectedOutput, $actualOutput);
     }
 
     public function computeCO2ScrubberRatingProvider()

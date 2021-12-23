@@ -33,8 +33,7 @@ class Solver
 
     public function computeOxygenGeneratorRating(): int // TODO: duplicated with computeCO2ScrubberRating
     {
-        for($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++)
-        {
+        for ($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++) {
             try {
                 $hasMoreZerosThanOne = $this->hasMoreZerosThanOnes($bitPosition);
                 $this->removeUnwantedDiagnosticReports($hasMoreZerosThanOne ? '0' : '1', $bitPosition);
@@ -42,8 +41,7 @@ class Solver
                 $this->removeUnwantedDiagnosticReports('1', $bitPosition);
             }
 
-            if (count($this->diagnosticReports) === 1)
-            {
+            if (count($this->diagnosticReports) === 1) {
                 return bindec(current($this->diagnosticReports));
             }
         }
@@ -53,8 +51,7 @@ class Solver
 
     public function computeCO2ScrubberRating(): int
     {
-        for($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++)
-        {
+        for ($bitPosition = 0; $bitPosition < $this->bitsCount; $bitPosition++) {
             try {
                 $hasMoreZerosThanOne = $this->hasMoreZerosThanOnes($bitPosition);
                 $this->removeUnwantedDiagnosticReports($hasMoreZerosThanOne ? '1' : '0', $bitPosition);
@@ -62,8 +59,7 @@ class Solver
                 $this->removeUnwantedDiagnosticReports('0', $bitPosition);
             }
 
-            if (count($this->diagnosticReports) === 1)
-            {
+            if (count($this->diagnosticReports) === 1) {
                 return bindec(current($this->diagnosticReports));
             }
         }
@@ -75,18 +71,15 @@ class Solver
     {
         $zeroCount = 0;
         $oneCount = 0;
-        foreach($this->diagnosticReports as $diagnosticReport)
-        {
-            if (intval(substr($diagnosticReport, $bitPosition, 1) == 0))
-            {
+        foreach ($this->diagnosticReports as $diagnosticReport) {
+            if (intval(substr($diagnosticReport, $bitPosition, 1) == 0)) {
                 $zeroCount++;
             } else {
                 $oneCount++;
             }
         }
 
-        if ($zeroCount === $oneCount)
-        {
+        if ($zeroCount === $oneCount) {
             throw new \LogicException(sprintf('Zero count equals one count: %s', $oneCount));
         }
         return $zeroCount > $oneCount;

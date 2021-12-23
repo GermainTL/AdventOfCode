@@ -17,9 +17,9 @@ class Solver
     public function solve(): ?int
     {
         $leastFuelPossible = null;
-        for($potentialPosition = 0; $potentialPosition <= max($this->horizontalPositions); $potentialPosition++) {
+        for ($potentialPosition = 0; $potentialPosition <= max($this->horizontalPositions); $potentialPosition++) {
             $consumedFuel = 0;
-            foreach($this->horizontalPositions as $horizontalPosition) {
+            foreach ($this->horizontalPositions as $horizontalPosition) {
                 if (abs($horizontalPosition - $potentialPosition) !== 0) {
                     $consumedFuel += array_sum(range(1, abs($horizontalPosition - $potentialPosition)));
                 }

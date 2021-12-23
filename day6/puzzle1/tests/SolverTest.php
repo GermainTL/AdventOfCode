@@ -15,7 +15,7 @@ class SolverTest extends TestCase
         $solver = new Solver($inputFilePath);
         $actualOutput = $solver->solve(80);
 
-        $this->assertEquals($expectedOutput,$actualOutput);
+        $this->assertEquals($expectedOutput, $actualOutput);
     }
 
     public function solveProvider()
