@@ -47,9 +47,9 @@ The most common second bit of the numbers in the diagnostic report is `0`, so th
 
 The most common value of the third, fourth, and fifth bits are `1`, `1`, and `0`, respectively, and so the final three bits of the gamma rate are `110`.
 
-So, the gamma rate is the binary number `10110`, or `*22*` in decimal.
+So, the gamma rate is the binary number `10110`, or `22` in decimal.
 
-The epsilon rate is calculated in a similar way; rather than use the most common bit, the least common bit from each position is used. So, the epsilon rate is `01001`, or `*9*` in decimal. Multiplying the gamma rate (`22`) by the epsilon rate (`9`) produces the power consumption, `*198*`.
+The epsilon rate is calculated in a similar way; rather than use the most common bit, the least common bit from each position is used. So, the epsilon rate is `01001`, or `9` in decimal. Multiplying the gamma rate (`22`) by the epsilon rate (`9`) produces the power consumption, `198`.
 
 Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate, then multiply them together. 
 
@@ -57,4 +57,12 @@ Use the binary numbers in your diagnostic report to calculate the gamma rate and
 
 First off,  [get your puzzle input](https://adventofcode.com/2021/day/3/input).
 
-<details><summary><strong>My answer</strong></summary><br>My puzzle answer was `3923414`.</details>
+<details>
+    <summary><strong>My answer</strong></summary><br>
+    My puzzle answer was <strong>3923414</strong>. <br>
+    <br>
+    <strong>How did I solve the puzzle ?</strong><br>
+    You can see the code leading to the solution in the day3/puzzle1/Solver.php file, whose entry point is the function solve()<br>
+    <br>
+    Also, you can see unit tests I create to check if my answer is correct in file day3/puzzle1/tests/SolverTest.php.
+</details>
