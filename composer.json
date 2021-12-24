@@ -13,6 +13,7 @@
             "Day7\\": "./day7",
             "Day8\\": "./day8",
             "Day9\\": "./day9",
+            "Day10\\": "./day10",
             "Utils\\": "./utils"
         }
     },
