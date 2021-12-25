@@ -6,127 +6,116 @@ use Utils\FileParser;
 
 class Solver
 {
-    private array $heightmap = [];
+    public const CHARACTERS_PAIRS = [
+        '(' => ')',
+        '{' => '}',
+        '[' => ']',
+        '<' => '>',
+    ];
 
-    private array $locationsInABasin = [];
+    public const COMPLETION_SCORE = [
+        ')' =>  1,
+        ']' => 2,
+        '}' => 3,
+        '>' => 4,
+    ];
+
+    private array $lines;
 
     public function __construct(string $filePath)
     {
         $inputContent = FileParser::parseInputSeparatedByBreakLines($filePath);
-        $this->setHeightmap($inputContent);
-        $this->setLocationsInABasin($inputContent);
+        $this->lines = $inputContent;
     }
 
     public function solve(): int
     {
-        $basinSizes = $this->getBasinSizes();
+        $this->discardCorruptedLines();
 
-        return $this->getProductOfThreeBiggerBasins($basinSizes);
+        $completionChars = $this->getCompletionChars();
+
+        $completionCharacterScores = self::computeCompletionCharacterScores($completionChars);
+
+        return self::getMiddleCompletionCharacterScore($completionCharacterScores);
     }
 
-    private function getBasinSizes(): array
+    private function discardCorruptedLines(): void
     {
-        $basinSizes = [];
-        foreach ($this->heightmap as $lineIndex => $heightmapLine) {
-            foreach ($heightmapLine as $locationIndex => $height) {
-                $adjacentLocations = $this->getAdjacentLocations($lineIndex, $locationIndex);
+        foreach ($this->lines as $lineIndex => $line) {
+            $openingCharacters = new \SplStack();
+            foreach (str_split($line) as $characterIndex => $character) {
+                $isAClosingCharacter = !isset(self::CHARACTERS_PAIRS[$character]);
+                if ($isAClosingCharacter) {
+                    $openingCharacters->rewind();
+                    $expectedNextClosingChar = self::CHARACTERS_PAIRS[$openingCharacters->current()];
+                    if ($character !== $expectedNextClosingChar) {
+                        $arrayToRemoveIndex = array_search($line, $this->lines);
+                        array_splice($this->lines, $arrayToRemoveIndex, 1);
 
-                $isALowestPoint = true;
-                foreach ($adjacentLocations as $adjacentLocation) {
-                    if ($adjacentLocation['height'] !== null && $adjacentLocation['height'] <= $height) {
-                        $isALowestPoint = false;
+                        break;
+                    } else {
+                        $openingCharacters->pop();
                     }
-                }
-
-                if ($isALowestPoint) {
-                    $this->locationsInABasin[$lineIndex][$locationIndex] = true;
-                    $basinSizes[] = $this->getBasinSize($lineIndex, $locationIndex, 1);
+                } else {
+                    $openingCharacters[] = $character;
                 }
             }
         }
-
-        return $basinSizes;
     }
 
-    private function getBasinSize($lineIndex, $locationIndex, $initialBasinSize): int
+    private function getCompletionChars(): array
     {
-        $basinSize = $initialBasinSize;
-        $adjacentLocations = $this->getAdjacentLocations($lineIndex, $locationIndex);
+        $completionChars = [];
 
-        foreach ($adjacentLocations as $adjacentLocation) {
-            if ($adjacentLocation['height'] !== null &&
-                $adjacentLocation['height'] !== 9 &&
-                !$this->locationsInABasin[$adjacentLocation['lineIndex']][$adjacentLocation['heightIndex']] &&
-                $adjacentLocation['height'] - $this->heightmap[$lineIndex][$locationIndex] > 0
-            ) {
-                $basinSize++;
-                $this->locationsInABasin[$adjacentLocation['lineIndex']][$adjacentLocation['heightIndex']] = true;
+        foreach ($this->lines as $lineIndex => $line) {
+            $completionChars[$lineIndex] = [];
+            $remainingOpeningChars = self::getRemainingOpeningChars($line);
 
-                $basinSize = $this->getBasinSize($adjacentLocation['lineIndex'], $adjacentLocation['heightIndex'], $basinSize);
+            $remainingOpeningChars->rewind();
+            while ($remainingOpeningChars->valid()) {
+                $completionChars[$lineIndex][] = self::CHARACTERS_PAIRS[$remainingOpeningChars->current()];
+                $remainingOpeningChars->next();
             }
         }
 
-        return $basinSize;
+        return $completionChars;
     }
 
-    private function getProductOfThreeBiggerBasins(array $basinSizes): int
+    private static function getRemainingOpeningChars(string $line): \SplStack
     {
-        rsort($basinSizes);
-        $threeBiggerBasinSizes = array_slice($basinSizes, 0, 3);
-
-        return array_product($threeBiggerBasinSizes);
-    }
-
-    private function getAdjacentLocations(int $lineIndex, int $locationIndex)
-    {
-        return  [
-            [
-                'lineIndex' => $lineIndex,
-                'heightIndex' => $locationIndex - 1,
-                'height' => $this->heightmap[$lineIndex][$locationIndex - 1] ?? null
-            ],
-            [
-                'lineIndex' => $lineIndex,
-                'heightIndex' => $locationIndex + 1,
-                'height' => $this->heightmap[$lineIndex][$locationIndex + 1] ?? null
-            ],
-            [
-                'lineIndex' => $lineIndex - 1,
-                'heightIndex' => $locationIndex,
-                'height' => $this->heightmap[$lineIndex - 1][$locationIndex] ?? null
-            ],
-            [
-                'lineIndex' => $lineIndex + 1,
-                'heightIndex' => $locationIndex,
-                'height' => $this->heightmap[$lineIndex + 1][$locationIndex] ?? null
-            ],
-        ];
-    }
-
-    private function setHeightmap(array $lines): self
-    {
-        $heightmap = [];
-        foreach ($lines as $line) {
-            $heightmap[] = array_map(fn (string $height) => (int) $height, str_split($line));
-        }
-
-        $this->heightmap = $heightmap;
-
-        return $this;
-    }
-
-    private function setLocationsInABasin(array $lines): self
-    {
-        $locationsInABasin = [];
-        foreach ($lines as $lineIndex => $line) {
-            $locationsInABasin[] = [];
-            foreach (str_split($line) as $locationIndex => $location) {
-                $locationsInABasin[$lineIndex][$locationIndex] = false;
+        $openingCharacters = new \SplStack();
+        foreach (str_split($line) as $characterIndex => $character) {
+            $isAClosingCharacter = !isset(self::CHARACTERS_PAIRS[$character]);
+            if ($isAClosingCharacter) {
+                $openingCharacters->pop();
+            } else {
+                $openingCharacters[] = $character;
             }
         }
 
-        $this->locationsInABasin = $locationsInABasin;
+        return $openingCharacters;
+    }
 
-        return $this;
+    private static function computeCompletionCharacterScores(array $completionChars): array
+    {
+        $completionCharacterScores = [];
+
+        foreach ($completionChars as $lineIndex => $completionCharLine) {
+            $completionCharacterScores[$lineIndex] = 0;
+            foreach ($completionCharLine as $completionChar) {
+                $completionCharacterScores[$lineIndex] *= 5;
+                $completionCharacterScores[$lineIndex] += self::COMPLETION_SCORE[$completionChar];
+            }
+        }
+
+        return $completionCharacterScores;
+    }
+
+    private static function getMiddleCompletionCharacterScore(array $completionCharacterScores): int
+    {
+        sort($completionCharacterScores);
+        $middleScoreIndex = (count($completionCharacterScores) - 1) / 2;
+
+        return $completionCharacterScores[$middleScoreIndex];
     }
 }
