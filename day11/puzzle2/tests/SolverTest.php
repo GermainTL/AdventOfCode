@@ -1,10 +1,14 @@
 <?php
 
-namespace Day10\Puzzle2\Tests;
+namespace Day11\Puzzle2\Tests;
 
-use Day10\Puzzle2\Solver;
+use Day11\Puzzle2\Solver;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SolverTest extends TestCase
 {
     /**
@@ -12,8 +16,8 @@ class SolverTest extends TestCase
      */
     public function testSolve(string $inputFilePath, int $expectedOutput)
     {
-        $solver = new Solver($inputFilePath);
-        $actualOutput = $solver->solve();
+        $solver = new Solver();
+        $actualOutput = $solver->solve($inputFilePath);
 
         $this->assertEquals($expectedOutput, $actualOutput);
     }
@@ -21,12 +25,13 @@ class SolverTest extends TestCase
     public function solveProvider()
     {
         yield 'Given example should return given answer' => [
-            'file path' => '/day10/inputs/sampleInput.txt',
-            'expected answer' => 288957
+            'file path' => '/day11/inputs/sampleInput.txt',
+            'expected answer' => 195,
         ];
+
         yield 'Given input should return answer' => [
-            'file path' => '/day10/inputs/input.txt',
-            'expected answer' => 4361305341
+            'file path' => '/day11/inputs/input.txt',
+            'expected answer' => 312,
         ];
     }
 }
