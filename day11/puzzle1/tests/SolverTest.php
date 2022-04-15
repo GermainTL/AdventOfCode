@@ -11,9 +11,9 @@ use PHPUnit\Framework\TestCase;
  */
 class SolverTest extends TestCase
 {
-    public const SAMPLE_INPUT_FILE_PATH = '/day11/inputs/sampleInput.txt';
+    public const SAMPLE_INPUT_FILE_PATH = '/Day11/Inputs/sampleInput.txt';
 
-    public const INPUT_FILE_PATH = '/day11/inputs/input.txt';
+    public const INPUT_FILE_PATH = '/Day11/Inputs/input.txt';
 
     /**
      * @dataProvider solveProvider

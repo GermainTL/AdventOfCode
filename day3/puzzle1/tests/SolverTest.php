@@ -21,11 +21,11 @@ class SolverTest extends TestCase
     public function solveProvider()
     {
         yield 'Given example should return given answer' => [
-            'file path' => '/day3/inputs/sampleInput.txt',
+            'file path' => '/Day3/Inputs/sampleInput.txt',
             'expected power consumption' => 198
         ];
         yield 'Given input should return the answer to puzzle' => [
-            'file path' => '/day3/inputs/input.txt',
+            'file path' => '/Day3/Inputs/input.txt',
             'expected power consumption' => 3923414
         ];
     }
@@ -44,11 +44,11 @@ class SolverTest extends TestCase
     public function computeGammaRateProvider()
     {
         yield 'Given example should return epsilon rate' => [
-            'file path' => '/day3/inputs/sampleInput.txt',
+            'file path' => '/Day3/Inputs/sampleInput.txt',
             'expected gamma rate' => 22
         ];
         yield 'Given input should return the correct gamma rate' => [
-            'file path' => '/day3/inputs/input.txt',
+            'file path' => '/Day3/Inputs/input.txt',
             'expected gamma rate' => 2566
         ];
     }
@@ -67,11 +67,11 @@ class SolverTest extends TestCase
     public function computeEpsilonRateProvider()
     {
         yield 'Given example should return given epsilon rate' => [
-            'file path' => '/day3/inputs/sampleInput.txt',
+            'file path' => '/Day3/Inputs/sampleInput.txt',
             'expected Epsilon rate' => 9
         ];
         yield 'Given input should return the correct epsilon rate' => [
-            'file path' => '/day3/inputs/input.txt',
+            'file path' => '/Day3/Inputs/input.txt',
             'expected Epsilon rate' => 1529
         ];
     }

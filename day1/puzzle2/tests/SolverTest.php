@@ -5,6 +5,10 @@ namespace Day1\Puzzle2\Tests;
 use Day1\Puzzle2\Solver;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SolverTest extends TestCase
 {
     /**
@@ -21,12 +25,13 @@ class SolverTest extends TestCase
     public function solveProvider()
     {
         yield 'Given example should return given answer' => [
-            'file path' => '/day1/inputs/sampleInput.txt',
-            'expected output' => 5
+            'file path' => '/Day1/Inputs/sampleInput.txt',
+            'expected output' => 5,
         ];
+
         yield 'Given input should return the answer to puzzle' => [
-            'file path' => '/day1/inputs/input.txt',
-            'expected output' => 1728414
+            'file path' => '/Day1/Inputs/input.txt',
+            'expected output' => 1633,
         ];
     }
 }
